@@ -1,0 +1,30 @@
+.cards__unordered-list {
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 20px;
+  column-gap: 17px;
+}
+
+@media (max-width: 710px) {
+  .cards__unordered-list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards__unordered-list {
+    row-gap: 20px;
+    column-gap: 12px;
+  }
+}
+
+@media (max-width: 435px) {
+  .cards__unordered-list {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}

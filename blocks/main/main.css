@@ -1,4 +1,12 @@
 .main{
   margin: 0 auto;
   max-width: 880px;
+  min-width: 282px;
 }
+
+@media (max-width: 918px) {
+  .main{
+    margin: 0 19px;
+  }
+}
+
