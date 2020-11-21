@@ -1,5 +1,6 @@
 .main{
   margin: 0 auto;
+  margin-bottom: 67px;
   max-width: 880px;
   min-width: 282px;
 }
@@ -7,6 +8,12 @@
 @media (max-width: 918px) {
   .main{
     margin: 0 19px;
+  }
+}
+
+@media (max-width: 435px) {
+  .main{
+    margin-bottom: 48px;
   }
 }
 

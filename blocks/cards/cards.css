@@ -1,10 +1,3 @@
 .cards{
   font-size: 0;
-  margin-bottom: 67px;
-}
-
-@media (max-width: 435px) {
-  .cards{
-    margin-bottom: 48px;
-  }
-}
+} 
