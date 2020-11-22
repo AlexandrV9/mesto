@@ -1,16 +1,19 @@
 .profile__caption {
   margin: 0;
-  margin-top: 16px;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #fff;
-  order: 3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (max-width: 435px) {
   .profile__caption {
-    margin-top: 14px;
+    max-width: calc(100vw - 38px);
+    margin-bottom: 36px;
+    margin: 0 auto;
   }
 }

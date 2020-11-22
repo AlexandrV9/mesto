@@ -1,6 +1,13 @@
 .button {
   padding: 0;
+  border: none;
   background: none;
-  border: 1px solid #fff;
   box-sizing: border-box;
+}
+
+.button:visited,
+.button:focus,
+.button:active,
+.button:hover{
+  outline:none;
 }

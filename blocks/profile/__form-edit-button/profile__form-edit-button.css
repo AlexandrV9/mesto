@@ -1,5 +1,4 @@
 .profile__form-edit-button{
-  order:2;
-  align-self: center;
+  align-self: flex-end;
 }
 

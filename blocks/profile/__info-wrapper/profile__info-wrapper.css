@@ -1,0 +1,12 @@
+.profile__info-wrapper {
+  display: flex;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 435px) {
+  .profile__info-wrapper {
+      max-width: calc(100vw - 40px);
+      margin: 0 auto;
+      margin-bottom: 14px;
+  }
+}

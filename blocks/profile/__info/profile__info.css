@@ -1,25 +1,18 @@
 .profile__info {
-  margin-right: 34px;
-  max-width: 336px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 724px) {
   .profile__info {
-    margin-right: 0;
-  }
-}
-
-@media (max-width: 560px) {
-  .profile__info {
-    max-width: 230.25px;
+    width: calc(100vw - 188px);
   }
 }
 
 @media (max-width: 435px) {
   .profile__info {
-    max-width: 100%;
-    justify-content: center;
+    width: 100%;
+    margin-bottom: 36px;
   }
 }

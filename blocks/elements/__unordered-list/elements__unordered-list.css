@@ -1,4 +1,4 @@
-.cards__unordered-list {
+.elements__unordered-list {
   padding: 0;
   list-style-type: none;
   display: grid;
@@ -9,22 +9,30 @@
 }
 
 @media (max-width: 710px) {
-  .cards__unordered-list {
+  .elements__unordered-list {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  .cards__unordered-list {
+  .elements__unordered-list {
     row-gap: 20px;
     column-gap: 12px;
   }
 }
 
 @media (max-width: 435px) {
-  .cards__unordered-list {
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+  .elements__unordered-list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: calc(100vw - 57px);
+  }
+}
+
+@media (max-width: 339px) {
+  .elements__unordered-list {
+    width: 282px;
   }
 }

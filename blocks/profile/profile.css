@@ -1,20 +1,22 @@
 .profile {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 51px;
+  display: grid;
+  grid-template-columns: 120px calc(100% - 350px) auto;
+  grid-template-rows: 1fr;
+  column-gap: 30px;
 }
 
 @media (max-width: 724px) {
   .profile {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: 1fr auto;
   }
 }
 
 @media (max-width: 435px) {
   .profile {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 36px;
   }
