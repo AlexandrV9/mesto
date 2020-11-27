@@ -1,4 +1,4 @@
-.elements__button-like{
+.element__button-like {
   width: 20.76px;
   height: 18.13px;
   margin-right: 22px;
@@ -8,7 +8,13 @@
   transition: opacity 0.6s linear;
 }
 
-.elements__button-like:hover{
-  opacity: 0.6;
+.element__button-like:hover {
+  opacity: 0.5;
   cursor: pointer;
 }
+
+.element__button-like:focus{
+  opacity: 1;
+  background-image: url(../../../images/like_active.svg);
+}
+

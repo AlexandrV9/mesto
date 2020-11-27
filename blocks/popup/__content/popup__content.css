@@ -1,9 +1,20 @@
 .popup__content {
-  margin: 0 36px;
+  padding: 34px 36px 37px;
+  max-width: 430px;
+  min-width: 282px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 @media (max-width: 560px) {
   .popup__content {
-    margin: 0 22px;
+    padding: 25px 22px 25px;
+    width: calc(100% - 160px);
   }
 }
+

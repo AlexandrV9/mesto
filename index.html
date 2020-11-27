@@ -19,9 +19,8 @@
       <div class="profile__info">
         <div class="profile__info-wrapper">
           <h1 class="profile__author">Жак-Ив Кусто</h1>
-          <form class="form profile__form-edit-button">
-            <button type="button" class="button profile__edit-button"></button>
-          </form>
+          <button type="button" aria-label="Открыть окно редактора профиля"
+            class="button profile__edit-button"></button>
         </div>
         <p class="profile__caption">Исследователь океана</p>
       </div>
@@ -32,57 +31,55 @@
 
     </section>
     <section class="elements">
-      <ul class="elements__unordered-list">
 
-        <li class="elements__list-item">
-          <img src="./images/Paris.jpg" alt="Париж" class="elements__image">
-          <div class="elements__content-wrapper">
-            <h2 class="elements__title">Париж</h2>
-            <button class="button elements__button-like"></button>
-          </div>
-        </li>
+      <article class="element">
+        <img src="./images/Paris.jpg" alt="Париж" class="element__image">
+        <div class="element__content-wrapper">
+          <h2 class="element__title">Париж</h2>
+          <button type="button" aria-label="Лайкнуть" class="button element__button-like"></button>
+        </div>
+      </article>
 
-        <li class="elements__list-item">
-          <img src="./images/Berlin.jpg" alt="Берлин" class="elements__image">
-          <div class="elements__content-wrapper">
-            <h2 class="elements__title">Берлин</h2>
-            <button class="button elements__button-like"></button>
-          </div>
-        </li>
+      <article class="element">
+        <img src="./images/Berlin.jpg" alt="Берлин" class="element__image">
+        <div class="element__content-wrapper">
+          <h2 class="element__title">Берлин</h2>
+          <button type="button" aria-label="Лайкнуть" class="button element__button-like"></button>
+        </div>
+      </article>
 
-        <li class="elements__list-item">
-          <img src="./images/Rome.jpg" alt="Рим" class="elements__image">
-          <div class="elements__content-wrapper">
-            <h2 class="elements__title">Рим</h2>
-            <button class="button elements__button-like"></button>
-          </div>
-        </li>
+      <article class="element">
+        <img src="./images/Rome.jpg" alt="Рим" class="element__image">
+        <div class="element__content-wrapper">
+          <h2 class="element__title">Рим</h2>
+          <button type="button" aria-label="Лайкнуть" class="button element__button-like"></button>
+        </div>
+      </article>
 
-        <li class="elements__list-item">
-          <img src="./images/Moscow.jpg" alt="Москва" class="elements__image">
-          <div class="elements__content-wrapper">
-            <h2 class="elements__title">Москва</h2>
-            <button class="button elements__button-like"></button>
-          </div>
-        </li>
+      <article class="element">
+        <img src="./images/Moscow.jpg" alt="Москва" class="element__image">
+        <div class="element__content-wrapper">
+          <h2 class="element__title">Москва</h2>
+          <button type="button" aria-label="Лайкнуть" class="button element__button-like"></button>
+        </div>
+      </article>
 
-        <li class="elements__list-item">
-          <img src="./images/Tokio.jpg" alt="Токио" class="elements__image">
-          <div class="elements__content-wrapper">
-            <h2 class="elements__title">Токио</h2>
-            <button class="button elements__button-like"></button>
-          </div>
-        </li>
+      <article class="element">
+        <img src="./images/Tokio.jpg" alt="Токио" class="element__image">
+        <div class="element__content-wrapper">
+          <h2 class="element__title">Токио</h2>
+          <button type="button" aria-label="Лайкнуть" class="button element__button-like"></button>
+        </div>
+      </article>
 
-        <li class="elements__list-item">
-          <img src="./images/Canberra.jpg" alt="Канберра" class="elements__image">
-          <div class="elements__content-wrapper">
-            <h2 class="elements__title">Канберра</h2>
-            <button class="button elements__button-like"></button>
-          </div>
-        </li>
+      <article class="element">
+        <img src="./images/Canberra.jpg" alt="Канберра" class="element__image">
+        <div class="element__content-wrapper">
+          <h2 class="element__title">Канберра</h2>
+          <button type="button" aria-label="Лайкнуть" class="button element__button-like"></button>
+        </div>
+      </article>
 
-      </ul>
     </section>
 
   </main>
@@ -92,17 +89,14 @@
   </footer>
 
   <div class="popup">
-    <div class="popup__window">
-      <div class="popup__content">
-        <button type="button" class="button popup__close-button"><img src="./images/plus.svg" alt="Иконка добавить"
-            class="popup__close-icon-image"></button>
-        <h3 class="popup__heading">Редактировать профиль</h3>
-        <form class="form popup__form">
-          <input type="text" value="Жак-Ив Кусто" class="popup__input popup__input-name">
-          <input type="text" value="Исследователь океана" class="popup__input popup__input-job">
-          <button type="submit" class="popup__input-submit-button">Сохранить</button>
-        </form>
-      </div>
+    <div class="popup__content">
+      <button type="button" aria-label="Закрыть окно редактора профиля" class="button popup__close-button"></button>
+      <h3 class="popup__heading">Редактировать профиль</h3>
+      <form name="Profile" class="form popup__form">
+        <input type="text" name="Name" value="Жак-Ив Кусто" class="popup__input popup__input_type_name">
+        <input type="text" name="Profession" value="Исследователь океана" class="popup__input popup__input_type_job">
+        <button type="submit" class="popup__input-submit-button">Сохранить</button>
+      </form>
     </div>
   </div>
 
