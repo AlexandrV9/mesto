@@ -18,3 +18,7 @@
   background-image: url(../../../images/like_active.svg);
 }
 
+.element__button-like:active{
+  opacity: 1;
+  background-image: url(../../../images/like_active.svg);
+}

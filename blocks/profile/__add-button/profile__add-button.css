@@ -7,6 +7,8 @@
   background-image: url(../../../images/plus.svg);
   background-repeat: no-repeat;
   background-position: center;
+  align-self: center;
+  justify-self: end;
 }
 
 .profile__add-button:hover {
@@ -14,8 +16,19 @@
   cursor: pointer;
 }
 
+@media (max-width: 724px) {
+  .profile__add-button {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    align-self: start;
+    justify-self: start;
+  }
+}
+
 @media (max-width: 435px) {
   .profile__add-button {
     width: 282px;
+    align-self: center;
+    background-size: 16px 16px;
   }
 }

@@ -14,18 +14,17 @@ function handleAddPopupVisibility(){
   popupNode.classList.add('popup_visible');
   popupInputNameNode.value = profileAuthorNode.textContent;
   popupInputJobNode.value = profileCaptionNode.textContent;
- }
+}
+
+function handleClearForm(){
+  popupNode.classList.remove('popup_visible');
+}
 
 function handleFormSubmit(event){
   event.preventDefault();
   profileAuthorNode.textContent = popupInputNameNode.value;
   profileCaptionNode.textContent = popupInputJobNode.value;
   handleClearForm();
-}
-
-function handleClearForm(){
-  popupNode.classList.remove('popup_visible');
-
 }
 
 profileEditButtonNode.addEventListener('click',handleAddPopupVisibility);
