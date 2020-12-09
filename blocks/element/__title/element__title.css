@@ -1,6 +1,5 @@
 .element__title {
   margin: 0;
-  margin-left: 21px;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
@@ -9,17 +8,3 @@
   white-space: nowrap;
   overflow: hidden;
 }
-
-/* @media (max-width: 600px) {
-  .cards__title {
-    font-size: 20px;
-    line-height: 25px;
-  }
-}
-
-@media (max-width: 490px) {
-  .cards__title {
-    font-size: 16px;
-    line-height: 21px;
-  }
-} */

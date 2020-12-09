@@ -1,0 +1,5 @@
+@media (max-width: 400px) {
+  .popup__heading_type_element {
+    margin-bottom: 36px;
+  }
+}
