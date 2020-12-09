@@ -1,8 +1,6 @@
 .element__content-wrapper{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 31px;
+  display: grid;
+  grid-template-columns: auto 20.75px;
+  grid-template-rows: 1fr;
+  padding: 0 15px 31px 21px;
 }
-
-
