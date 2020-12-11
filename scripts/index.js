@@ -58,6 +58,7 @@ function composeCard(item){
 
   headerElement.textContent = item.name;
   imageElement.src = item.link;
+  imageElement.alt = item.name;
 
   removeButton.addEventListener('click',handleElementButtonDelete);
   elementButtonLike.addEventListener('click',handleElementButtonLikeActive);
@@ -89,6 +90,7 @@ function handleOpenPopupImage(event){
   const cuurentElementTitltNode = currentElementNode.querySelector('.element__title');
   elementInputImageNode.src = currentElementImageNode.src;
   elementInputCaptionNode.textContent = cuurentElementTitltNode.textContent;
+  elementInputImageNode.alt = cuurentElementTitltNode.textContent;
 }
 
 function renderList(){
