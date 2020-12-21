@@ -1,27 +1,27 @@
 const initialCards = [
   {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+      name: 'Канберра',
+      link: 'https://images.unsplash.com/photo-1555848960-8c3ed4cf32a0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
   },
   {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+      name: 'Москва',
+      link: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=687&q=80'
   },
   {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+      name: 'Вашингтон',
+      link: 'https://images.unsplash.com/photo-1501466044931-62695aada8e9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1278&q=80'
   },
   {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+      name: 'Токио',
+      link: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
   },
   {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+      name: 'Рим',
+      link: 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80'
   },
   {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+      name: 'Берлин',
+      link: 'https://images.unsplash.com/photo-1509136561942-7d8663edaaa2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80'
   }
 ];
 
@@ -58,25 +58,39 @@ function composeCard(item){
 
   headerElement.textContent = item.name;
   imageElement.src = item.link;
+  imageElement.alt = item.name;
 
   removeButton.addEventListener('click',handleElementButtonDelete);
   elementButtonLike.addEventListener('click',handleElementButtonLikeActive);
-  imageElement.addEventListener('click',handleOpenImageElement);
+  imageElement.addEventListener('click',handleOpenPopupImage);
 
   return newCard;
 }
 
-function handleAddPopupVisibility(event){
-  if(event.target.classList.contains('profile__edit-button')){
-     popupProfileNode.classList.add('popup_visible');
-     profileInputNameNode.value = profileAuthorNode.textContent;
-     profileInputJobNode.value = profileCaptionNode.textContent;
-  }
-  else{
-    popupElementNode.classList.add('popup_visible');
-    elementInputNameNode.value ='';
-    elementInputLinkNode.value = '';
-  }
+function handleAddPopupVisibility(popup){
+  popup.classList.add('popup_visible');
+}
+
+function handleOpenPopupProfile(){
+  handleAddPopupVisibility(popupProfileNode);
+  profileInputNameNode.value = profileAuthorNode.textContent;
+  profileInputJobNode.value = profileCaptionNode.textContent;
+}
+
+function handleOpenPopupElement(){
+  handleAddPopupVisibility(popupElementNode);
+  const buttonResetPopupElementForm = popupElementNode.querySelector('.popup__form');
+  buttonResetPopupElementForm.reset();
+}
+
+function handleOpenPopupImage(event){
+  handleAddPopupVisibility(popupImageNode);
+  const currentElementNode = event.target.closest('.element');
+  const currentElementImageNode = currentElementNode.querySelector('.element__image');
+  const cuurentElementTitltNode = currentElementNode.querySelector('.element__title');
+  elementInputImageNode.src = currentElementImageNode.src;
+  elementInputCaptionNode.textContent = cuurentElementTitltNode.textContent;
+  elementInputImageNode.alt = cuurentElementTitltNode.textContent;
 }
 
 function renderList(){
@@ -86,9 +100,8 @@ function renderList(){
 
 renderList();
 
-function handleClosePopup(event){
-  let currentPopup = event.target.closest('.popup')
-  currentPopup.classList.remove('popup_visible');
+function handleClosePopup(popup){
+  popup.classList.remove('popup_visible');
 }
 
 function handleAddNewElement(event){
@@ -102,24 +115,14 @@ function handleProfileFormSubmit(event){
   event.preventDefault();
   profileAuthorNode.textContent = profileInputNameNode.value;
   profileCaptionNode.textContent = profileInputJobNode.value;
-  handleClosePopup(event);
+  handleClosePopup(popupProfileNode);
  }
 
 function handleAddElementFormSubmit(event){
   event.preventDefault();
   handleAddNewElement();
-  handleClosePopup(event);
+  handleClosePopup(popupElementNode);
 }
-
-function handleOpenImageElement(event){
-  let currentElementNode = event.target.closest('.element');
-  let currentElementImageNode = currentElementNode.querySelector('.element__image');
-  let cuurentElementTitltNode = currentElementNode.querySelector('.element__title');
-  elementInputImageNode.src = currentElementImageNode.src;
-  elementInputCaptionNode.textContent = cuurentElementTitltNode.textContent;
-  popupImageNode.classList.add('popup_visible');
-}
-
 
 function handleElementButtonLikeActive(event){
   event.target.classList.toggle('element__button-like_active');
@@ -129,12 +132,12 @@ function handleElementButtonDelete(event){
   event.target.closest('.element').remove();
 }
 
-popupCloseButtonProfileNode.addEventListener('click',handleClosePopup);
-popupCloseButtonElementNode.addEventListener('click',handleClosePopup);
-popupCloseButtonImageNode.addEventListener('click',handleClosePopup);
+popupCloseButtonProfileNode.addEventListener('click',() => {handleClosePopup(popupProfileNode)});
+popupCloseButtonElementNode.addEventListener('click',() => {handleClosePopup(popupElementNode)});
+popupCloseButtonImageNode.addEventListener('click',() => {handleClosePopup(popupImageNode)});
 
-profileEditButtonNode.addEventListener('click',handleAddPopupVisibility);
-profileAddButtonNode.addEventListener('click', handleAddPopupVisibility);
+profileEditButtonNode.addEventListener('click',handleOpenPopupProfile);
+profileAddButtonNode.addEventListener('click',handleOpenPopupElement);
 
-popupProfileNode.addEventListener('submit', handleProfileFormSubmit);
+popupProfileNode.addEventListener('submit',  handleProfileFormSubmit);
 popupElementNode.addEventListener('submit', handleAddElementFormSubmit);
