@@ -25,6 +25,14 @@ const initialCards = [
   }
 ];
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inputInvalidClass: 'popup__input_state_invalid',
+  buttonInvalidClass: 'popup__button_invalid',
+};
+
 const profileAuthorNode = document.querySelector('.profile__author');
 const profileCaptionNode = document.querySelector('.profile__caption');
 const profileEditButtonNode = document.querySelector('.profile__edit-button');
@@ -49,6 +57,8 @@ const popupCloseButtonProfileNode = popupProfileNode.querySelector('.popup__clos
 const popupCloseButtonElementNode = popupElementNode.querySelector('.popup__close-button');
 const popupCloseButtonImageNode = popupImageNode.querySelector('.popup__close-button');
 
+enableValidation(validationConfig);
+
 function composeCard(item){
   const newCard = templateCardNode.content.cloneNode(true);
   const headerElement = newCard.querySelector('.element__title');
@@ -69,18 +79,21 @@ function composeCard(item){
 
 function handleAddPopupVisibility(popup){
   popup.classList.add('popup_visible');
+  document.addEventListener('keydown', handleClosePopupByEscButton(popup));
 }
 
 function handleOpenPopupProfile(){
   handleAddPopupVisibility(popupProfileNode);
   profileInputNameNode.value = profileAuthorNode.textContent;
   profileInputJobNode.value = profileCaptionNode.textContent;
+  notifyAboutFormInoutChange(popupProfileNode, validationConfig);
 }
 
 function handleOpenPopupElement(){
   handleAddPopupVisibility(popupElementNode);
   const buttonResetPopupElementForm = popupElementNode.querySelector('.popup__form');
   buttonResetPopupElementForm.reset();
+  notifyAboutFormInoutChange(popupElementNode, validationConfig);
 }
 
 function handleOpenPopupImage(event){
@@ -102,24 +115,25 @@ renderList();
 
 function handleClosePopup(popup){
   popup.classList.remove('popup_visible');
+  if(popup.querySelector('.popup__form')){
+    resetValidityState(popup, validationConfig);
+  }
 }
 
-function handleAddNewElement(event){
+function handleAddNewElement(){
   const inputText = elementInputNameNode.value;
   const inputLink = elementInputLinkNode.value;
   const newElement = composeCard({name: inputText, link: inputLink});
   listContainerElement.prepend(newElement);
 }
 
-function handleProfileFormSubmit(event){
-  event.preventDefault();
+function handleProfileFormSubmit(){
   profileAuthorNode.textContent = profileInputNameNode.value;
   profileCaptionNode.textContent = profileInputJobNode.value;
   handleClosePopup(popupProfileNode);
  }
 
-function handleAddElementFormSubmit(event){
-  event.preventDefault();
+function handleAddElementFormSubmit(){
   handleAddNewElement();
   handleClosePopup(popupElementNode);
 }
@@ -132,6 +146,31 @@ function handleElementButtonDelete(event){
   event.target.closest('.element').remove();
 }
 
+function handleClosePopupByOverlay(popup){
+  return (event) => {
+    if (event.target === event.currentTarget) {
+      popup.classList.remove('popup_visible');
+      if(popup.querySelector('.popup__form')){
+        resetValidityState(popup, validationConfig);
+      }
+    };
+  }
+}
+
+function handleClosePopupByEscButton(popup){
+  return (event) => {
+    if (event.key === 'Escape') {
+      popup.classList.remove('popup_visible');
+      if(popup.querySelector('.popup__form')){
+        resetValidityState(popup, validationConfig);
+      }
+    }
+    return;
+  }
+}
+
+
+
 popupCloseButtonProfileNode.addEventListener('click',() => {handleClosePopup(popupProfileNode)});
 popupCloseButtonElementNode.addEventListener('click',() => {handleClosePopup(popupElementNode)});
 popupCloseButtonImageNode.addEventListener('click',() => {handleClosePopup(popupImageNode)});
@@ -141,3 +180,7 @@ profileAddButtonNode.addEventListener('click',handleOpenPopupElement);
 
 popupProfileNode.addEventListener('submit',  handleProfileFormSubmit);
 popupElementNode.addEventListener('submit', handleAddElementFormSubmit);
+
+popupProfileNode.addEventListener('click', handleClosePopupByOverlay(popupProfileNode));
+popupElementNode.addEventListener('click', handleClosePopupByOverlay(popupElementNode));
+popupImageNode.addEventListener('click', handleClosePopupByOverlay(popupImageNode));
