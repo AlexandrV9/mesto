@@ -63,9 +63,4 @@ function resetValidityState(popup, config){
   })
 }
 
-function notifyAboutFormInoutChange(popup, config){
-  const currentForm = popup.querySelector(config.formSelector);
-  const submitButton = currentForm.querySelector(config.submitButtonSelector);
-  setEventListeners(currentForm, config);
-  setButtonState(submitButton, currentForm.checkValidity(), config);
-}
+
