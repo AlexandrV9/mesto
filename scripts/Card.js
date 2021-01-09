@@ -1,4 +1,4 @@
-import { openPopup, popupImageNode, elementInputImageNode, elementInputCaptionNode } from './index.js';
+import { openPopup, popupImageNode, elementInputImageNode, elementInputCaptionNode } from './utils.js';
 
 export default class Card{
 
@@ -18,36 +18,44 @@ export default class Card{
   }
 
   _setEventListener(){
-    this._element.querySelector('.element__button-delete').addEventListener('click', () => {this._handleElementButtonDelete();
+    this._elementButtonDelete.addEventListener('click', () => {this._handleElementButtonDelete();
     });
-    this._element.querySelector('.element__button-like').addEventListener('click', () => {this._handleElementButtonLikeActive();
+    this._elementButtonLike.addEventListener('click', () => {this._handleElementButtonLikeActive();
     });
-    this._element.querySelector('.element__image').addEventListener('click',() => {this._handleOpenPopupImage();
+    this._elementImage.addEventListener('click',() => {this._handleOpenPopupImage();
     });
   }
 
   _handleElementButtonDelete(){
     this._element.remove();
+    this._element = '';
   }
 
   _handleElementButtonLikeActive(){
-    this._element.querySelector('.element__button-like').classList.toggle('element__button-like_active');
+    this._elementButtonLike.classList.toggle('element__button-like_active');
   }
 
   _handleOpenPopupImage(){
     openPopup(popupImageNode);
-    elementInputImageNode.src = this._element.querySelector('.element__image').src;
-    elementInputCaptionNode.textContent = this._element.querySelector('.element__title').textContent;
-    elementInputImageNode.alt = this._element.querySelector('.element__title').textContent;
+    elementInputImageNode.src = this._elementImage.src;
+    elementInputCaptionNode.textContent = this._elementTitle.textContent;
+    elementInputImageNode.alt = this._elementTitle.textContent;
   }
 
   generateCard(){
     this._element = this._getTemplate();
+    // Все переменные ниже будут доступны и в других методах.
+    this._elementTitle = this._element.querySelector('.element__title');
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementButtonDelete = this._element.querySelector('.element__button-delete');
+    this._elementButtonLike = this._element.querySelector('.element__button-like');
+
     this._setEventListener();
-    this._element.querySelector('.element__image').src = this._link;
-    this._element.querySelector('.element__image').alt = this._name;
-    this._element.querySelector('.element__title').textContent = this._name;
+
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
+    this._elementTitle.textContent = this._name;
+
     return this._element;
   }
-
 }
