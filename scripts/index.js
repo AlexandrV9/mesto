@@ -1,6 +1,12 @@
 import { openPopup, сlosePopup, popupImageNode} from './utils.js';
 import  Card  from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+
+import {
+  initialCards,
+  cardListSelector,
+} from './constants.js'
 
 const validationConfig = {
   inputSelector: '.popup__input',
@@ -29,15 +35,17 @@ const popupCloseButtonProfileNode = popupProfileNode.querySelector('.popup__clos
 const popupCloseButtonElementNode = popupElementNode.querySelector('.popup__close-button');
 const popupCloseButtonImageNode = popupImageNode.querySelector('.popup__close-button');
 
-function createNewCard(item){
-  const card = new Card(item,'.template-card');
-  const cardElement = card.generateCard();
-  return cardElement;
-}
+const cardList = new Section({
+  items: initialCards.reverse(),
+  renderer:(cardItem) => {
+    const card = new Card(cardItem,'.template-card');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+  },cardListSelector
+);
 
-initialCards.forEach((item) => {
-  listContainerElement.append(createNewCard(item));
-});
+cardList.renderItems();
 
 const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
 const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
@@ -63,7 +71,16 @@ function handleOpenPopupElement(){
 function handleAddNewElement(){
   const inputText = elementInputNameNode.value;
   const inputLink = elementInputLinkNode.value;
-  listContainerElement.prepend(createNewCard({name: inputText, link: inputLink},'.template-card'));
+  const newCard = new Section({
+    items: [ {name: inputText, link: inputLink} ],
+    renderer:(cardItem) => {
+      const card = new Card(cardItem,'.template-card');
+      const cardElement = card.generateCard();
+      newCard.addItem(cardElement);
+    }
+    },cardListSelector
+  );
+  newCard.renderItems();
 }
 
 function handleProfileFormSubmit(){
