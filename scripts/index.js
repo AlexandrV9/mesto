@@ -3,6 +3,7 @@ import  Card  from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
 
 import {
   initialCards,
@@ -40,10 +41,20 @@ const elementInputLinkNode = popupElementNode.querySelector('.popup__input_type_
 // const popupCloseButtonElementNode = popupElementNode.querySelector('.popup__close-button');
 const popupCloseButtonImageNode = popupImageNode.querySelector('.popup__close-button');
 
+const popupProfile = new Popup('.popup_type_profile');
+const popupElement = new Popup('.popup_type_element');
+const PopupImage = new PopupWithImage('.popup_type_image');
+
+
 const cardList = new Section({
   items: initialCards.reverse(),
   renderer:(cardItem) => {
-    const card = new Card(cardItem,'.template-card');
+    const card = new Card(cardItem,'.template-card',{
+      handleCardClick: (elementTitle, elementImage) => {
+        // const PopupImage = new PopupWithImage('.popup_type_image',elementTitle,elementImage);
+        PopupImage.open(elementTitle, elementImage);
+      }
+     });
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
@@ -58,11 +69,6 @@ const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__f
 checkformPopupProfileNode.enableValidation();
 checkformPopupElementNode.enableValidation();
 
-const popupProfile = new Popup('.popup_type_profile');
-const popupElement = new Popup('.popup_type_element');
-
-
-
 popupProfile.setEventListeners();
 popupElement.setEventListeners();
 
@@ -76,7 +82,6 @@ function handleOpenPopupProfile(){
 
 function handleOpenPopupElement(){
   popupElement.open();
-  // openPopup(popupElementNode);
   const buttonResetPopupElementForm = popupElementNode.querySelector('.popup__form');
   buttonResetPopupElementForm.reset();
   checkformPopupElementNode.resetValidityState();
@@ -88,9 +93,14 @@ function handleAddNewElement(){
   const newCard = new Section({
     items: [ {name: inputText, link: inputLink} ],
     renderer:(cardItem) => {
-      const card = new Card(cardItem,'.template-card');
+      const card = new Card(cardItem,'.template-card',{
+        handleCardClick: (elementTitle, elementImage) => {
+          // const PopupImage = new PopupWithImage('.popup_type_image',elementTitle,elementImage);
+          PopupImage.open(elementTitle,elementImage);
+        }
+       });
       const cardElement = card.generateCard();
-      newCard.addItem(cardElement);
+      cardList.addItem(cardElement);
     }
     },cardListSelector
   );

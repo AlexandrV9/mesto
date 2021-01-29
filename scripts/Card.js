@@ -2,10 +2,12 @@ import { openPopup, popupImageNode, elementInputImageNode, elementInputCaptionNo
 
 export default class Card{
 
-  constructor(data, cardSelector){
+  constructor(data, cardSelector, { handleCardClick }){
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this.handleCardClick = handleCardClick;
+    console.log(this.handleCardClick);
   }
 
   _getTemplate(){
@@ -22,7 +24,10 @@ export default class Card{
     });
     this._elementButtonLike.addEventListener('click', () => {this._handleElementButtonLikeActive();
     });
-    this._elementImage.addEventListener('click',() => {this._handleOpenPopupImage();
+    // this._elementImage.addEventListener('click',() => {this._handleOpenPopupImage();
+    // });
+
+    this._elementImage.addEventListener('click',() => {this.handleCardClick(this._elementTitle, this._elementImage);
     });
   }
 
@@ -35,12 +40,12 @@ export default class Card{
     this._elementButtonLike.classList.toggle('element__button-like_active');
   }
 
-  _handleOpenPopupImage(){
-    openPopup(popupImageNode);
-    elementInputImageNode.src = this._elementImage.src;
-    elementInputCaptionNode.textContent = this._elementTitle.textContent;
-    elementInputImageNode.alt = this._elementTitle.textContent;
-  }
+  // _handleOpenPopupImage(){
+  //   openPopup(popupImageNode);
+  //   elementInputImageNode.src = this._elementImage.src;
+  //   elementInputCaptionNode.textContent = this._elementTitle.textContent;
+  //   elementInputImageNode.alt = this._elementTitle.textContent;
+  // }
 
   generateCard(){
     this._element = this._getTemplate();
