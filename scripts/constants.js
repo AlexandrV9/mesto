@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
       name: 'Канберра',
       link: 'https://images.unsplash.com/photo-1555848960-8c3ed4cf32a0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
@@ -24,3 +24,10 @@ const initialCards = [
       link: 'https://images.unsplash.com/photo-1509136561942-7d8663edaaa2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80'
   }
 ];
+
+export const cardListSelector = '.elements';
+
+export const profileAddButtonNode = document.querySelector('.profile__add-button');
+export const profileEditButtonNode = document.querySelector('.profile__edit-button');
+
+export const esc = 'Escape';
