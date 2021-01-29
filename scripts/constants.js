@@ -26,3 +26,8 @@ export const initialCards = [
 ];
 
 export const cardListSelector = '.elements';
+
+export const profileAddButtonNode = document.querySelector('.profile__add-button');
+export const profileEditButtonNode = document.querySelector('.profile__edit-button');
+
+export const esc = 'Escape';

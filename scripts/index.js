@@ -2,10 +2,13 @@ import { openPopup, сlosePopup, popupImageNode} from './utils.js';
 import  Card  from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
+import Popup from './Popup.js';
 
 import {
   initialCards,
   cardListSelector,
+  profileAddButtonNode,
+  profileEditButtonNode
 } from './constants.js'
 
 const validationConfig = {
@@ -15,10 +18,12 @@ const validationConfig = {
   buttonInvalidClass: 'popup__button_invalid'
 };
 
+
+
 const profileAuthorNode = document.querySelector('.profile__author');
 const profileCaptionNode = document.querySelector('.profile__caption');
-const profileEditButtonNode = document.querySelector('.profile__edit-button');
-const profileAddButtonNode = document.querySelector('.profile__add-button');
+
+
 
 const listContainerElement = document.querySelector('.elements');
 
@@ -31,8 +36,8 @@ const profileInputJobNode = popupProfileNode.querySelector('.popup__input_type_j
 const elementInputNameNode =  popupElementNode.querySelector('.popup__input_type_name');
 const elementInputLinkNode = popupElementNode.querySelector('.popup__input_type_link');
 
-const popupCloseButtonProfileNode = popupProfileNode.querySelector('.popup__close-button');
-const popupCloseButtonElementNode = popupElementNode.querySelector('.popup__close-button');
+// const popupCloseButtonProfileNode = popupProfileNode.querySelector('.popup__close-button');
+// const popupCloseButtonElementNode = popupElementNode.querySelector('.popup__close-button');
 const popupCloseButtonImageNode = popupImageNode.querySelector('.popup__close-button');
 
 const cardList = new Section({
@@ -53,16 +58,25 @@ const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__f
 checkformPopupProfileNode.enableValidation();
 checkformPopupElementNode.enableValidation();
 
+const popupProfile = new Popup('.popup_type_profile');
+const popupElement = new Popup('.popup_type_element');
+
+
+
+popupProfile.setEventListeners();
+popupElement.setEventListeners();
 
 function handleOpenPopupProfile(){
-  openPopup(popupProfileNode);
+  popupProfile.open();
+  // openPopup(popupProfileNode);
   profileInputNameNode.value = profileAuthorNode.textContent;
   profileInputJobNode.value = profileCaptionNode.textContent;
   checkformPopupProfileNode.resetValidityState();
 }
 
 function handleOpenPopupElement(){
-  openPopup(popupElementNode);
+  popupElement.open();
+  // openPopup(popupElementNode);
   const buttonResetPopupElementForm = popupElementNode.querySelector('.popup__form');
   buttonResetPopupElementForm.reset();
   checkformPopupElementNode.resetValidityState();
@@ -86,12 +100,14 @@ function handleAddNewElement(){
 function handleProfileFormSubmit(){
   profileAuthorNode.textContent = profileInputNameNode.value;
   profileCaptionNode.textContent = profileInputJobNode.value;
-  сlosePopup(popupProfileNode);
+  popupProfile.close();
+  // сlosePopup(popupProfileNode);
  }
 
 function handleAddElementFormSubmit(){
   handleAddNewElement();
-  сlosePopup(popupElementNode);
+  popupElement.close();
+  // сlosePopup(popupElementNode);
 }
 
 function handleClosePopupByOverlay(popup){
@@ -102,8 +118,8 @@ function handleClosePopupByOverlay(popup){
   }
 }
 
-popupCloseButtonProfileNode.addEventListener('click',() => {сlosePopup(popupProfileNode)});
-popupCloseButtonElementNode.addEventListener('click',() => {сlosePopup(popupElementNode)});
+// popupCloseButtonProfileNode.addEventListener('click',() => {сlosePopup(popupProfileNode)});
+// popupCloseButtonElementNode.addEventListener('click',() => {сlosePopup(popupElementNode)});
 popupCloseButtonImageNode.addEventListener('click',() => {сlosePopup(popupImageNode)});
 
 profileEditButtonNode.addEventListener('click',handleOpenPopupProfile);

@@ -3,7 +3,7 @@ export const popupImageNode = document.querySelector('.popup_type_image');
 export const elementInputImageNode = popupImageNode.querySelector('.popup__image');
 export const elementInputCaptionNode = popupImageNode.querySelector('.popup__caption');
 
-const esc = 'Escape';
+// const esc = 'Escape';
 
 export function openPopup(popup){
   disableScroll();
