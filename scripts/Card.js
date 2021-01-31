@@ -7,7 +7,6 @@ export default class Card{
     this._link = data.link;
     this._cardSelector = cardSelector;
     this.handleCardClick = handleCardClick;
-    console.log(this.handleCardClick);
   }
 
   _getTemplate(){
