@@ -31,3 +31,11 @@ export const profileAddButtonNode = document.querySelector('.profile__add-button
 export const profileEditButtonNode = document.querySelector('.profile__edit-button');
 
 export const esc = 'Escape';
+
+export const profileAuthorNode = document.querySelector('.profile__author');
+export const profileCaptionNode = document.querySelector('.profile__caption');
+
+export const popupProfileNode = document.querySelector('.popup_type_profile');
+
+export const profileInputNameNode = popupProfileNode.querySelector('.popup__input_type_name');
+export const profileInputJobNode = popupProfileNode.querySelector('.popup__input_type_job');
