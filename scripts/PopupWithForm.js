@@ -1,17 +1,20 @@
 import Popup from './Popup.js';
 import {
-  profileAuthorNode,
-  profileCaptionNode,
-  profileInputNameNode,
-  profileInputJobNode
+
 } from './constants.js'
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, { handleFormSubmit }){
-    super(popupSelector); // в конструктор колбэк сабмита формы
+    super(popupSelector);
     this.handleFormSubmit = handleFormSubmit;
+    this.popupForm = this._popup.querySelector('.popup__form');
+    this._inputList = this._popup.querySelectorAll('.popup__input');
   }
   _getInputValues(){
-    // собирает данные всех полей формы
+    const data = {};
+    this._inputList.forEach((item) => {
+      data[item.name] = item.value;
+    });
+    return data;
   }
   setEventListeners(){
     super.setEventListeners();
@@ -20,6 +23,7 @@ export default class PopupWithForm extends Popup {
   }
   close(){
     super.close();
+    this.popupForm.resetValidityState();
 
     // при закрытии попапа форма должна ещё и сбрасываться
   }

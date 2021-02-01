@@ -1,16 +1,19 @@
-import { openPopup, сlosePopup, popupImageNode} from './utils.js';
+import { сlosePopup, popupImageNode} from './utils.js';
 import  Card  from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
 import {
   initialCards,
   cardListSelector,
   profileAddButtonNode,
-  profileEditButtonNode
+  profileEditButtonNode,
+  userParameters,
+  profileAuthorNode
 } from './constants.js'
 
 const validationConfig = {
@@ -20,26 +23,19 @@ const validationConfig = {
   buttonInvalidClass: 'popup__button_invalid'
 };
 
-const profileAuthorNode = document.querySelector('.profile__author');
-const profileCaptionNode = document.querySelector('.profile__caption');
-
-
 const popupProfileNode = document.querySelector('.popup_type_profile');
 const popupElementNode = document.querySelector('.popup_type_element');
-
-const profileInputNameNode = popupProfileNode.querySelector('.popup__input_type_name');
-const profileInputJobNode = popupProfileNode.querySelector('.popup__input_type_job');
 
 const elementInputNameNode =  popupElementNode.querySelector('.popup__input_type_name');
 const elementInputLinkNode = popupElementNode.querySelector('.popup__input_type_link');
 
-const popupCloseButtonImageNode = popupImageNode.querySelector('.popup__close-button');
-
 const popupProfile = new Popup('.popup_type_profile');
 const popupElement = new Popup('.popup_type_element');
-const PopupImage = new PopupWithImage('.popup_type_image');
+const popupImage = new PopupWithImage('.popup_type_image');
 
-PopupImage.setEventListeners();
+popupProfile.setEventListeners();
+popupElement.setEventListeners();
+popupImage.setEventListeners();
 
 
 const cardList = new Section({
@@ -47,7 +43,7 @@ const cardList = new Section({
   renderer:(cardItem) => {
     const card = new Card(cardItem,'.template-card',{
       handleCardClick: (elementTitle, elementImage) => {
-        PopupImage.open(elementTitle, elementImage);
+        popupImage.open(elementTitle, elementImage);
       }
      });
     const cardElement = card.generateCard();
@@ -64,13 +60,13 @@ const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__f
 checkformPopupProfileNode.enableValidation();
 checkformPopupElementNode.enableValidation();
 
-popupProfile.setEventListeners();
-popupElement.setEventListeners();
+
+
+const userInfo = new UserInfo(userParameters);
 
 function handleOpenPopupProfile(){
   popupProfile.open();
-  profileInputNameNode.value = profileAuthorNode.textContent;
-  profileInputJobNode.value = profileCaptionNode.textContent;
+  userInfo.getUserInfo();
   checkformPopupProfileNode.resetValidityState();
 }
 
@@ -83,8 +79,7 @@ function handleOpenPopupElement(){
 
 const popupProfileForm = new PopupWithForm('.popup_type_profile', {
   handleFormSubmit: () => {
-    profileAuthorNode.textContent = profileInputNameNode.value;
-    profileCaptionNode.textContent = profileInputJobNode.value;
+    userInfo.setUserInfo();
     popupProfileForm.close();
   }
 });
@@ -100,7 +95,7 @@ const popupElementForm = new PopupWithForm('.popup_type_element', {
       renderer:(cardItem) => {
         const card = new Card(cardItem,'.template-card',{
           handleCardClick: (elementTitle, elementImage) => {
-            PopupImage.open(elementTitle,elementImage);
+            popupImage.open(elementTitle,elementImage);
           }
          });
         const cardElement = card.generateCard();

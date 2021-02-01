@@ -39,3 +39,8 @@ export const popupProfileNode = document.querySelector('.popup_type_profile');
 
 export const profileInputNameNode = popupProfileNode.querySelector('.popup__input_type_name');
 export const profileInputJobNode = popupProfileNode.querySelector('.popup__input_type_job');
+
+export const userParameters = {
+  nameUserSelector: '.profile__author',
+  descriptionUserSelector: '.profile__caption'
+}
