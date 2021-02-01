@@ -1,5 +1,4 @@
 import {
-  profileAddButtonNode,
   esc
  } from './constants.js';
 
@@ -22,8 +21,14 @@ export default class Popup {
       this.close();
     }
   }
+  _handleClosePopupByOverlay = (event) => {
+    if (event.target === event.currentTarget) {
+      this.close();
+    };
+  }
   setEventListeners(){
     this._popupCloseButton.addEventListener('click', () => { this.close() });
+    this._popup.addEventListener('click', this._handleClosePopupByOverlay);
   }
 }
 

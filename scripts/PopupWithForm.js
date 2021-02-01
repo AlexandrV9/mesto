@@ -1,7 +1,5 @@
 import Popup from './Popup.js';
-import {
 
-} from './constants.js'
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, { handleFormSubmit }){
     super(popupSelector);
@@ -19,13 +17,9 @@ export default class PopupWithForm extends Popup {
   setEventListeners(){
     super.setEventListeners();
     this._popup.addEventListener('submit', () => {this.handleFormSubmit()});
-    // должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы
   }
   close(){
     super.close();
-    this.popupForm.resetValidityState();
-
-    // при закрытии попапа форма должна ещё и сбрасываться
+    this.popupForm.reset();
   }
-  // Для каждого попапа создавайте свой экземпляр класса PopupWithForm
 }

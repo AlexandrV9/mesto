@@ -1,5 +1,4 @@
-import { сlosePopup, popupImageNode} from './utils.js';
-import  Card  from './Card.js';
+import Card  from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
@@ -13,7 +12,6 @@ import {
   profileAddButtonNode,
   profileEditButtonNode,
   userParameters,
-  profileAuthorNode
 } from './constants.js'
 
 const validationConfig = {
@@ -23,9 +21,7 @@ const validationConfig = {
   buttonInvalidClass: 'popup__button_invalid'
 };
 
-const popupProfileNode = document.querySelector('.popup_type_profile');
 const popupElementNode = document.querySelector('.popup_type_element');
-
 const elementInputNameNode =  popupElementNode.querySelector('.popup__input_type_name');
 const elementInputLinkNode = popupElementNode.querySelector('.popup__input_type_link');
 
@@ -60,8 +56,6 @@ const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__f
 checkformPopupProfileNode.enableValidation();
 checkformPopupElementNode.enableValidation();
 
-
-
 const userInfo = new UserInfo(userParameters);
 
 function handleOpenPopupProfile(){
@@ -72,8 +66,6 @@ function handleOpenPopupProfile(){
 
 function handleOpenPopupElement(){
   popupElement.open();
-  const buttonResetPopupElementForm = popupElementNode.querySelector('.popup__form');
-  buttonResetPopupElementForm.reset();
   checkformPopupElementNode.resetValidityState();
 }
 
@@ -111,17 +103,5 @@ const popupElementForm = new PopupWithForm('.popup_type_element', {
 
 popupElementForm.setEventListeners();
 
-function handleClosePopupByOverlay(popup){
-  return (event) => {
-    if (event.target === event.currentTarget) {
-      сlosePopup(popup);
-    };
-  }
-}
-
 profileEditButtonNode.addEventListener('click',handleOpenPopupProfile);
 profileAddButtonNode.addEventListener('click',handleOpenPopupElement);
-
-popupProfileNode.addEventListener('click', handleClosePopupByOverlay(popupProfileNode));
-popupElementNode.addEventListener('click', handleClosePopupByOverlay(popupElementNode));
-popupImageNode.addEventListener('click', handleClosePopupByOverlay(popupImageNode));
