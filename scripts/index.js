@@ -12,27 +12,19 @@ import {
   profileAddButtonNode,
   profileEditButtonNode,
   userParameters,
+  validationConfig,
+  elementInputNameNode,
+  elementInputLinkNode
 } from './constants.js'
-
-const validationConfig = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inputInvalidClass: 'popup__input_state_invalid',
-  buttonInvalidClass: 'popup__button_invalid'
-};
-
-const popupElementNode = document.querySelector('.popup_type_element');
-const elementInputNameNode =  popupElementNode.querySelector('.popup__input_type_name');
-const elementInputLinkNode = popupElementNode.querySelector('.popup__input_type_link');
 
 const popupProfile = new Popup('.popup_type_profile');
 const popupElement = new Popup('.popup_type_element');
 const popupImage = new PopupWithImage('.popup_type_image');
 
-popupProfile.setEventListeners();
-popupElement.setEventListeners();
-popupImage.setEventListeners();
+const userInfo = new UserInfo(userParameters);
 
+const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
+const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
 
 const cardList = new Section({
   items: initialCards.reverse(),
@@ -49,14 +41,6 @@ const cardList = new Section({
 );
 
 cardList.renderItems();
-
-const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
-const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
-
-checkformPopupProfileNode.enableValidation();
-checkformPopupElementNode.enableValidation();
-
-const userInfo = new UserInfo(userParameters);
 
 function handleOpenPopupProfile(){
   popupProfile.open();
@@ -75,8 +59,6 @@ const popupProfileForm = new PopupWithForm('.popup_type_profile', {
     popupProfileForm.close();
   }
 });
-
-popupProfileForm.setEventListeners();
 
 const popupElementForm = new PopupWithForm('.popup_type_element', {
   handleFormSubmit: () => {
@@ -101,7 +83,15 @@ const popupElementForm = new PopupWithForm('.popup_type_element', {
   }
 );
 
+popupProfile.setEventListeners();
+popupElement.setEventListeners();
+popupImage.setEventListeners();
+
 popupElementForm.setEventListeners();
+popupProfileForm.setEventListeners();
+
+checkformPopupProfileNode.enableValidation();
+checkformPopupElementNode.enableValidation();
 
 profileEditButtonNode.addEventListener('click',handleOpenPopupProfile);
 profileAddButtonNode.addEventListener('click',handleOpenPopupElement);

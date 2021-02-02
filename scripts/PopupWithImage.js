@@ -1,5 +1,8 @@
 import Popup from './Popup.js';
-import { elementInputImageNode, elementInputCaptionNode } from './constants.js';
+import {
+  elementInputImageNode,
+  elementInputCaptionNode
+} from './constants.js';
 
 export default class PopupWithImage extends Popup {
   constructor(popupSelector){
@@ -8,8 +11,8 @@ export default class PopupWithImage extends Popup {
 
   open(elementTitle, elementImage){
     super.open();
-    elementInputImageNode.src = elementImage.src;
     elementInputCaptionNode.textContent = elementTitle.textContent;
+    elementInputImageNode.src = elementImage.src;
     elementInputImageNode.alt = elementTitle.textContent;
   }
 
