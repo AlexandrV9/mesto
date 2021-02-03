@@ -1,5 +1,4 @@
 import {
-  profileAddButtonNode,
   esc
  } from './constants.js';
 
@@ -11,7 +10,7 @@ export default class Popup {
   }
   open(){
     this._popup.classList.add('popup_visible');
-    document.addEventListener('keydown', this._handleEscClose );
+    document.addEventListener('keydown',  this._handleEscClose);
   }
   close(){
     this._popup.classList.remove('popup_visible');
@@ -22,8 +21,13 @@ export default class Popup {
       this.close();
     }
   }
+  _handleClosePopupByOverlay = (event) => {
+    if (event.target === event.currentTarget) {
+      this.close();
+    };
+  }
   setEventListeners(){
     this._popupCloseButton.addEventListener('click', () => { this.close() });
+    this._popup.addEventListener('click', this._handleClosePopupByOverlay);
   }
 }
-

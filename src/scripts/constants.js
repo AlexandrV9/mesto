@@ -25,17 +25,35 @@ export const initialCards = [
   }
 ];
 
-export const cardListSelector = '.elements';
+export const validationConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inputInvalidClass: 'popup__input_state_invalid',
+  buttonInvalidClass: 'popup__button_invalid'
+};
 
-export const profileAddButtonNode = document.querySelector('.profile__add-button');
-export const profileEditButtonNode = document.querySelector('.profile__edit-button');
+export const userParameters = {
+  nameUserSelector: '.profile__author',
+  descriptionUserSelector: '.profile__caption'
+}
+
+export const cardListSelector = '.elements';
 
 export const esc = 'Escape';
 
 export const profileAuthorNode = document.querySelector('.profile__author');
 export const profileCaptionNode = document.querySelector('.profile__caption');
+export const profileAddButtonNode = document.querySelector('.profile__add-button');
+export const profileEditButtonNode = document.querySelector('.profile__edit-button');
 
 export const popupProfileNode = document.querySelector('.popup_type_profile');
-
 export const profileInputNameNode = popupProfileNode.querySelector('.popup__input_type_name');
 export const profileInputJobNode = popupProfileNode.querySelector('.popup__input_type_job');
+
+export const popupImagetNode = document.querySelector('.popup_type_image');
+export const elementInputImageNode = popupImagetNode.querySelector('.popup__image');
+export const elementInputCaptionNode = popupImagetNode.querySelector('.popup__caption');
+
+export const popupElementNode = document.querySelector('.popup_type_element');
+export const elementInputNameNode =  popupElementNode.querySelector('.popup__input_type_name');
+export const elementInputLinkNode = popupElementNode.querySelector('.popup__input_type_link');
