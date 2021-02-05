@@ -1,0 +1,88 @@
+import Card  from '../scripts/Card.js';
+import FormValidator from '../scripts/FormValidator.js';
+import Section from '../scripts/Section.js';
+import PopupWithImage from '../scripts/PopupWithImage.js';
+import PopupWithForm from '../scripts/PopupWithForm.js';
+import UserInfo from '../scripts/UserInfo.js';
+
+import './index.css';
+
+import {
+  initialCards,
+  cardListSelector,
+  userParameters,
+  profileAddButtonNode,
+  profileEditButtonNode,
+  profileInputNameNode,
+  profileInputJobNode,
+  validationConfig,
+  elementInputCaptionNode,
+  elementInputImageNode,
+  esc
+} from '../scripts/constants.js'
+
+const popupImage = new PopupWithImage('.popup_type_image', elementInputImageNode, elementInputCaptionNode, esc);
+
+const userInfo = new UserInfo(userParameters, profileInputNameNode, profileInputJobNode);
+
+const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
+const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
+
+function сreateCard(cardItem) {
+  const card = new Card(cardItem,'.template-card',{
+    handleCardClick: (elementTitle, elementImage) => {
+      popupImage.open(elementTitle, elementImage);
+    }
+   });
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
+}
+
+const cardList = new Section({
+  items: initialCards.reverse(),
+  renderer:(cardItem) => {
+    сreateCard(cardItem);
+  }
+  },cardListSelector
+);
+
+cardList.renderItems();
+
+const popupProfile = new PopupWithForm('.popup_type_profile', {
+  handleFormSubmit: ( data ) => {
+    userInfo.setUserInfo(profileInputNameNode, profileInputJobNode);
+    popupProfile.close();
+  }
+  }, esc
+);
+
+const popupElement = new PopupWithForm('.popup_type_element', {
+  handleFormSubmit: ( data ) => {
+    const inputText = data.Name;
+    const inputLink = data.Link;
+    cardList.renderer( {name: inputText, link: inputLink} );
+    popupElement.close();
+  }
+  }, esc
+);
+
+function handleOpenPopupProfile(){
+  popupProfile.open();
+  userInfo.getUserInfo(profileInputNameNode, profileInputJobNode);
+  checkformPopupProfileNode.resetValidityState();
+}
+
+function handleOpenPopupElement(){
+  popupElement.open();
+  checkformPopupElementNode.resetValidityState();
+}
+
+popupImage.setEventListeners();
+popupElement.setEventListeners();
+popupProfile.setEventListeners();
+
+checkformPopupProfileNode.enableValidation();
+checkformPopupElementNode.enableValidation();
+
+profileEditButtonNode.addEventListener('click',handleOpenPopupProfile);
+profileAddButtonNode.addEventListener('click',handleOpenPopupElement);
