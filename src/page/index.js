@@ -11,6 +11,9 @@ import {
   initialCards,
   cardListSelector,
   userParameters,
+  profileAuthorNode,
+  profileCaptionNode,
+  profileImafeNode,
   profileAddButtonNode,
   profileEditButtonNode,
   profileInputNameNode,
@@ -20,6 +23,23 @@ import {
   elementInputImageNode,
   esc
 } from '../scripts/constants.js'
+
+fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me',{
+  headers: {
+    authorization: 'c11cc168-18b7-47ef-9e2e-a935593ae9b6'
+  }
+})
+.then(res => res.json())
+.then((result) => {
+  console.log(result);
+  profileAuthorNode.textContent =  result.name;
+  profileCaptionNode.textContent = result.about;
+  profileImafeNode.style.backgroundImage = `url(${result.avatar})`;
+});
+
+
+
+
 
 const popupImage = new PopupWithImage('.popup_type_image', elementInputImageNode, elementInputCaptionNode, esc);
 
