@@ -37,6 +37,23 @@ fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me',{
   profileImafeNode.style.backgroundImage = `url(${result.avatar})`;
 });
 
+fetch('https://mesto.nomoreparties.co/v1/cohort-20/cards ',{
+  headers: {
+    authorization: 'c11cc168-18b7-47ef-9e2e-a935593ae9b6'
+  }
+})
+.then(res => res.json())
+.then((result) => {
+  const cardList = new Section({
+    items: result,
+    renderer:(cardItem) => {
+      сreateCard(cardItem, cardList);
+    }
+    },cardListSelector
+  );
+  cardList.renderItems();
+});
+
 
 
 
@@ -48,7 +65,7 @@ const userInfo = new UserInfo(userParameters, profileInputNameNode, profileInput
 const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
 const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
 
-function сreateCard(cardItem) {
+function сreateCard(cardItem, cardList) {
   const card = new Card(cardItem,'.template-card',{
     handleCardClick: (elementTitle, elementImage) => {
       popupImage.open(elementTitle, elementImage);
@@ -57,16 +74,6 @@ function сreateCard(cardItem) {
   const cardElement = card.generateCard();
   cardList.addItem(cardElement);
 }
-
-const cardList = new Section({
-  items: initialCards.reverse(),
-  renderer:(cardItem) => {
-    сreateCard(cardItem);
-  }
-  },cardListSelector
-);
-
-cardList.renderItems();
 
 const popupProfile = new PopupWithForm('.popup_type_profile', {
   handleFormSubmit: ( data ) => {
