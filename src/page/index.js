@@ -34,7 +34,7 @@ const checkformPopupAvatarNode = new FormValidator(validationConfig, '.popup__fo
 
 const api = new API(apiConfig);
 
-const popupWithSubmit = new PopupWithSubmit('.popup_type_confirmation-сard-delete', esc, api);
+const popupWithSubmit = new PopupWithSubmit('.popup_type_confirmation-card-delete', esc, api);
 const popupImage = new PopupWithImage('.popup_type_image', elementInputImageNode, elementInputCaptionNode, esc);
 
 const userInfo = new UserInfo(userParameters, profileInputNameNode, profileInputJobNode);
