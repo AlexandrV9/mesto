@@ -15,4 +15,5 @@ export default class Section {
   renderItems(listItems){
     listItems.forEach(item => this.renderer(item));
   }
+
 }

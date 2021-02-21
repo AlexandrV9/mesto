@@ -18,4 +18,5 @@ export default class UserInfo {
     this._nameUser.textContent = profileInputNameNode.value;
     this._descriptionUser.textContent = profileInputJobNode.value;
   }
+  
 }

@@ -65,4 +65,5 @@ export default class FormValidator {
     });
     this._setButtonState(this._submitButton, this._form.checkValidity());
   }
+  
 }
