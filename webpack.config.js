@@ -53,5 +53,6 @@ module.exports = {
       exclude: '/node_modules/'
     },
   ]
- }
+ },
+ devtool: 'inline-source-map',
 }
