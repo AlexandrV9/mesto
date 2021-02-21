@@ -3,7 +3,7 @@ export default class Popup {
     this._popupSelector = popupSelector;
     this._popup = document.querySelector(this._popupSelector);
     this._popupCloseButton = this._popup.querySelector('.popup__close-button');
-    this.esc = esc;
+    this._esc = esc;
   }
   open(){
     this._popup.classList.add('popup_visible');
@@ -16,7 +16,7 @@ export default class Popup {
     this._popup.removeEventListener('click', this._handleClosePopupByOverlay);
   }
   _handleEscClose = (event) => {
-    if (event.key === this.esc) {
+    if (event.key === this._esc) {
       this.close();
     }
   }

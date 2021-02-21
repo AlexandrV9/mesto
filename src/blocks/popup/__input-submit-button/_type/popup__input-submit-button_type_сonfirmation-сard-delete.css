@@ -1,0 +1,15 @@
+.popup__input-submit-button_type_сonfirmation-сard-delete {
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
+  opacity: 1;
+  transition: opacity .6s linear;
+}
