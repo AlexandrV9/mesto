@@ -1,0 +1,14 @@
+.popup__close-button_type_confirmation-card-delete{
+  transform: rotate(-45deg);
+  top: -40px;
+  right: -40px;
+}
+
+@media (max-width: 560px) {
+  .popup__close-button_type_element {
+    width: 30px;
+    height: 30px;
+    top: -28px;
+    right: -28px;
+  }
+}
