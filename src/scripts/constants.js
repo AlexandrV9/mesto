@@ -32,6 +32,14 @@ export const validationConfig = {
   buttonInvalidClass: 'popup__button_invalid'
 };
 
+export const apiConfig = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
+  headers: {
+    authorization: 'c11cc168-18b7-47ef-9e2e-a935593ae9b6',
+    'Content-Type': 'application/json'
+  },
+}
+
 export const userParameters = {
   nameUserSelector: '.profile__author',
   descriptionUserSelector: '.profile__caption'
@@ -40,10 +48,12 @@ export const userParameters = {
 export const cardListSelector = '.elements';
 
 export const esc = 'Escape';
+export const loadingText = 'Сохранение...';
 
 export const profileAuthorNode = document.querySelector('.profile__author');
 export const profileCaptionNode = document.querySelector('.profile__caption');
 export const profileImafeNode = document.querySelector('.profile__avatar');
+export const profileEditAvatarButtonNode = document.querySelector('.profile__avatar-cover');
 export const profileAddButtonNode = document.querySelector('.profile__add-button');
 export const profileEditButtonNode = document.querySelector('.profile__edit-button');
 

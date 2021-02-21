@@ -4,93 +4,141 @@ import Section from '../scripts/Section.js';
 import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import UserInfo from '../scripts/UserInfo.js';
+import PopupWithSubmit from '../scripts/PopupWithSubmit.js';
+import API from '../scripts/API.js';
 
 import './index.css';
 
 import {
-  initialCards,
+  validationConfig,
+  apiConfig,
   cardListSelector,
   userParameters,
   profileAuthorNode,
   profileCaptionNode,
   profileImafeNode,
+  profileEditAvatarButtonNode,
   profileAddButtonNode,
   profileEditButtonNode,
   profileInputNameNode,
   profileInputJobNode,
-  validationConfig,
   elementInputCaptionNode,
   elementInputImageNode,
-  esc
+  esc,
+  loadingText
 } from '../scripts/constants.js'
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-20/users/me',{
-  headers: {
-    authorization: 'c11cc168-18b7-47ef-9e2e-a935593ae9b6'
-  }
-})
-.then(res => res.json())
-.then((result) => {
-  console.log(result);
-  profileAuthorNode.textContent =  result.name;
-  profileCaptionNode.textContent = result.about;
-  profileImafeNode.style.backgroundImage = `url(${result.avatar})`;
-});
+const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
+const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
+const checkformPopupAvatarNode = new FormValidator(validationConfig, '.popup__form_type_avatar');
 
-fetch('https://mesto.nomoreparties.co/v1/cohort-20/cards ',{
-  headers: {
-    authorization: 'c11cc168-18b7-47ef-9e2e-a935593ae9b6'
-  }
-})
-.then(res => res.json())
-.then((result) => {
-  const cardList = new Section({
-    items: result,
-    renderer:(cardItem) => {
-      сreateCard(cardItem, cardList);
-    }
-    },cardListSelector
-  );
-  cardList.renderItems();
-});
+const api = new API(apiConfig);
 
-
-
-
-
+const popupWithSubmit = new PopupWithSubmit('.popup_type_сonfirmation-сard-delete', esc, api);
 const popupImage = new PopupWithImage('.popup_type_image', elementInputImageNode, elementInputCaptionNode, esc);
 
 const userInfo = new UserInfo(userParameters, profileInputNameNode, profileInputJobNode);
 
-const checkformPopupProfileNode = new FormValidator(validationConfig, '.popup__form_type_profile');
-const checkformPopupElementNode = new FormValidator(validationConfig, '.popup__form_type_element');
+let myId;
 
-function сreateCard(cardItem, cardList) {
-  const card = new Card(cardItem,'.template-card',{
+popupWithSubmit.setEventListeners();
+
+
+api
+  .getUserInfo()
+  .then((data) => {
+    myId = data._id;
+    profileImafeNode.style.backgroundImage = `url(${data.avatar})`;
+    profileAuthorNode.textContent =  data.name;
+    profileCaptionNode.textContent = data.about;
+    profileImafeNode.style.backgroundImage = `url(${data.avatar})`;
+  })
+  .catch((err) => {`
+  Ошибка ${err}`
+});
+
+api
+  .getAllCards()
+  .then((data) => {
+    cardList.renderItems(data.reverse());
+  })
+  .catch((err) => {
+  `Ошибка ${err}`
+});
+
+function сreateCard(cardItem) {
+  const card = new Card(cardItem,'.template-card', myId, api, {
     handleCardClick: (elementTitle, elementImage) => {
       popupImage.open(elementTitle, elementImage);
-    }
-   });
+    },
+    handleDeleteClick: (currentCard) =>{
+      popupWithSubmit.open(currentCard, cardItem._id)
+    },
+  });
   const cardElement = card.generateCard();
   cardList.addItem(cardElement);
 }
 
-const popupProfile = new PopupWithForm('.popup_type_profile', {
-  handleFormSubmit: ( data ) => {
-    userInfo.setUserInfo(profileInputNameNode, profileInputJobNode);
-    popupProfile.close();
+const cardList = new Section({
+  renderer:(cardItem) => {
+    сreateCard(cardItem);
   }
-  }, esc
+  },cardListSelector
 );
 
-const popupElement = new PopupWithForm('.popup_type_element', {
-  handleFormSubmit: ( data ) => {
-    const inputText = data.Name;
-    const inputLink = data.Link;
-    cardList.renderer( {name: inputText, link: inputLink} );
-    popupElement.close();
+const handleLoadingRequest = (textButtonSubmit) =>{
+  const saveText = textButtonSubmit.innerHTML;
+  textButtonSubmit.textContent = loadingText;
+  return saveText;
+}
+
+const popupProfile = new PopupWithForm('.popup_type_profile', {
+  handleFormSubmit: (data, textButtonSubmit) => {
+    const textButton = handleLoadingRequest(textButtonSubmit);
+    api
+      .editProfile(data)
+      .then(() => {
+        userInfo.setUserInfo(profileInputNameNode, profileInputJobNode);
+      })
+      .catch((err) => {`Ошибка ${err}`})
+      .finally(() => {
+      textButtonSubmit.textContent = textButton;
+      popupProfile.close();
+    });
   }
-  }, esc
+}, esc);
+
+const popupElement = new PopupWithForm('.popup_type_element', {
+  handleFormSubmit: (data, textButtonSubmit) => {
+    const textButton = handleLoadingRequest(textButtonSubmit);
+    api
+    .addCard(data)
+    .then((res) => {
+      сreateCard(res);
+    })
+    .catch((err) => {`Ошибка ${err}`})
+    .finally(() => {
+    textButtonSubmit.textContent = textButton;
+    popupElement.close();
+    })
+  }
+}, esc);
+
+const popupAvatar = new PopupWithForm('.popup_type_avatar', {
+  handleFormSubmit: (data, textButtonSubmit) => {
+    const textButton = handleLoadingRequest(textButtonSubmit);
+    api
+    .updateAvatar(data.link)
+    .then((res) => {
+      profileImafeNode.style.backgroundImage = `url(${res.avatar})`;
+    })
+    .catch((err) => {`Ошибка ${err}`})
+    .finally(() => {
+    textButtonSubmit.textContent = textButton;
+    popupAvatar.close();
+    });
+  }
+}, esc
 );
 
 function handleOpenPopupProfile(){
@@ -104,12 +152,20 @@ function handleOpenPopupElement(){
   checkformPopupElementNode.resetValidityState();
 }
 
+function handleOpenPopupAvatar(){
+  popupAvatar.open();
+  checkformPopupAvatarNode.resetValidityState();
+}
+
 popupImage.setEventListeners();
 popupElement.setEventListeners();
 popupProfile.setEventListeners();
+popupAvatar.setEventListeners();
 
 checkformPopupProfileNode.enableValidation();
 checkformPopupElementNode.enableValidation();
+checkformPopupAvatarNode.enableValidation();
 
 profileEditButtonNode.addEventListener('click',handleOpenPopupProfile);
 profileAddButtonNode.addEventListener('click',handleOpenPopupElement);
+profileEditAvatarButtonNode.addEventListener('click',handleOpenPopupAvatar);

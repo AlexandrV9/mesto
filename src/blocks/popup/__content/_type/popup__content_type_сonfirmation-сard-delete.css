@@ -1,0 +1,25 @@
+.popup__content_type_сonfirmation-сard-delete{
+  width: 430px;
+  padding: 34px 36px 36px;
+}
+
+@media (max-width: 560px) {
+  .popup__content_type_сonfirmation-сard-delete {
+    width: calc(100% - 160px);
+    padding: 30px 20px 30px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .popup__content_type_сonfirmation-сard-delete {
+    width: 320px;
+  }
+}
+
+@media (max-width: 400px) {
+  .popup__content_type_сonfirmation-сard-delete {
+    width: calc(100% - 80px);
+    padding: 25px 22px;
+  }
+}
